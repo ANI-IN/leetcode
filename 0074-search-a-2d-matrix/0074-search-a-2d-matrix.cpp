@@ -3,23 +3,22 @@ public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int n=matrix.size();
         int m=matrix[0].size();
+        int row=n-1;
+        int col=0;
         
-        int low=0,high=n*m-1;
-        
-        while(low<=high)
+        while(row>=0 && col<m)
         {
-            int mid=low+(high-low)/2;
-            int val=matrix[mid/m][mid%m];
-                
-            if(target==val)
-                return true;
-            else if(target>val)
+            if(matrix[row][col]==target)
             {
-                low=mid+1;
+                return true;
+            }
+            else if(matrix[row][col]<target)
+            {
+                col++;
             }
             else
             {
-                high=mid-1;
+                row--;
             }
         }
         return false;
