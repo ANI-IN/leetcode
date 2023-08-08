@@ -3,27 +3,31 @@ public:
     int trap(vector<int>& arr) {
         int n=arr.size();
         
-        vector<int> left(n);
-        vector<int> right(n);
-        
-        left[0]=arr[0];
-        right[n-1]=arr[n-1];
-        
-        for(int i=1;i<n;i++)
+        int i=0,j=n-1;
+        int lm=0,rm=0;
+        int res=0;
+        while(i<=j)
         {
-            left[i]=max(left[i-1],arr[i]);
+            if(arr[i]<=arr[j])
+            {
+                if(arr[i]>=lm)
+                    lm=arr[i];
+                else
+                    res+=lm-arr[i];
+                    
+                i++;
+            }
+            else
+            {
+                if(arr[j]>=rm)
+                    rm=arr[j];
+                else
+                    res+=rm-arr[j];
+                
+                j--;
+            }
+            
         }
-        
-        for(int i=n-2;i>=0;i--)
-        {
-            right[i]=max(right[i+1],arr[i]);
-        }
-        
-        int ans=0;
-        for(int i=0;i<n;i++)
-        {
-            ans=ans+min(left[i],right[i])-arr[i];
-        }
-        return ans;
+        return res;
     }
 };
