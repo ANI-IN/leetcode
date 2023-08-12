@@ -1,23 +1,28 @@
 class Solution {
-public:
-    int numberOfSubarrays(vector<int>& nums, int k) {
-        int n=nums.size();
-        unordered_map<int,int>m;
-        
-        int i=0,j=0;
-        int sum=0;
-        int curr=0;
-        m[0]=1;
+    int solve(vector<int>&nums,int k)
+    {
+        int c=0,i=0,j=0,n=nums.size();
+        int ans=0;
         while(j<n)
-        {   
-            sum=sum+(nums[j]%2);
-            if(m.find(sum-k)!=m.end())
+        {
+            if(nums[j]%2==1)
+                c++;
+            if(c>k)
             {
-                curr+=m[sum-k];
+                while(c>k)
+                {
+                    if(nums[i]%2==1)
+                        c--;
+                    i++;
+                }
             }
-            m[sum]++;
+            ans=ans+(j-i+1);
             j++;
         }
-        return curr;
+        return ans;
+    }
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        return solve(nums,k)-solve(nums,k-1);
     }
 };
