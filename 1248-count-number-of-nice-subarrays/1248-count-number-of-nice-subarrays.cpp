@@ -1,7 +1,9 @@
 class Solution {
-    int solve(vector<int>&nums,int k)
+    int solve(vector<int>&nums, int k)
     {
-        int c=0,i=0,j=0,n=nums.size();
+        int i=0,j=0,n=nums.size();
+        int sum=0;
+        int c=0;
         int ans=0;
         while(j<n)
         {
@@ -13,16 +15,19 @@ class Solution {
                 {
                     if(nums[i]%2==1)
                         c--;
+                    
                     i++;
                 }
             }
-            ans=ans+(j-i+1);
+            ans=ans+j-i+1;
             j++;
         }
+        
         return ans;
     }
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
+        
         return solve(nums,k)-solve(nums,k-1);
     }
 };
