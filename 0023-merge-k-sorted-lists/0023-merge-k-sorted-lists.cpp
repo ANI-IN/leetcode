@@ -8,30 +8,44 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class comp{
+  public:  
+    bool operator()(ListNode *a, ListNode *b)
+    {
+        if(a->val>b->val)
+            return true;
+        else
+            return false;
+            
+    }
+};
+class Solution{ 
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        priority_queue<int,vector<int>,greater<int>>q;
+        priority_queue<ListNode *, vector<ListNode*>,comp>q;
         
         for(int i=0;i<lists.size();i++)
         {
-            ListNode *curr=lists[i];
-            while(curr!=NULL)
+            if(lists[i]!=NULL)
+                q.push(lists[i]);
+        }
+        
+        ListNode *head= new ListNode(0);
+        ListNode *curr=head;
+        
+        while(!q.empty())
+        {
+            ListNode *temp=q.top();
+            q.pop();
+            curr->next=temp;
+            curr=curr->next;
+            
+            if(temp->next!=NULL)
             {
-                q.push(curr->val);
-                curr=curr->next;
+                q.push(temp->next);
             }
         }
+        return head->next;
         
-       ListNode* dummy = new ListNode(); // Create a dummy node to simplify list operations
-        ListNode* curr = dummy; // Use a pointer to iterate through the merged list
-        
-        while(!q.empty()) {
-            curr->next = new ListNode(q.top());
-            q.pop();
-            curr = curr->next;
-        }
-        
-        return dummy->next;
     }
 };
