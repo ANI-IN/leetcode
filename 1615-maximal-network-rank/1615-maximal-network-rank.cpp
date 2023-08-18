@@ -1,20 +1,13 @@
 class Solution {
 public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) {
-        
-        vector<int> indegree(n);
-        
+                
         unordered_map<int,unordered_set<int>> adj;
+        //using unordered set because to use find function in O(1) TC
         
         for (int i = 0; i < roads.size(); i++) {
-            int u = roads[i][0];
-            int v = roads[i][1];
-            
-            adj[u].insert(v);
-            adj[v].insert(u);
-            
-            indegree[u]++;
-            indegree[v]++;
+            adj[roads[i][0]].insert(roads[i][1]);
+            adj[roads[i][1]].insert(roads[i][0]);
         }
          
         int ans=0;
@@ -22,10 +15,10 @@ public:
         {
             for(int j=i+1;j<n;j++)
             {
-                int ii=adj[i].size();
-                int jj=adj[j].size();
+                int indegree_i=adj[i].size();
+                int indegree_j=adj[j].size();
                 
-                int res=ii+jj;
+                int res=indegree_i+indegree_j;
                 
                 if(adj[i].find(j)!=adj[i].end())
                     res--;
