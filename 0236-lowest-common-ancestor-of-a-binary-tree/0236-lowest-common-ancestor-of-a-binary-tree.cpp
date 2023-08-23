@@ -8,42 +8,21 @@
  * };
  */
 class Solution {
-    bool solve(TreeNode* root, vector<TreeNode*>& ans, TreeNode* b) {
-        if (root == NULL)
-            return false;
-        
-        ans.push_back(root);
-        
-        if (root->val == b->val)
-            return true;
-        
-        if (solve(root->left, ans, b) || solve(root->right, ans, b))
-            return true;
-        
-        ans.pop_back();
-        return false;
-    }
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL || root==p || root==q)
+            return root;
         
-        vector<TreeNode *>pp;
-        vector<TreeNode *>qq;
+        TreeNode *left=lowestCommonAncestor(root->left,p,q);
+        TreeNode *right=lowestCommonAncestor(root->right,p,q);
         
-        
-        solve(root,pp,p);
-        solve(root,qq,q);
-        
-        TreeNode *prev=NULL;
-        
-        int n=min(pp.size(),qq.size());
-        
-        for(int i=0;i<n;i++)
-        {
-            if(pp[i]->val==qq[i]->val)
-                prev=pp[i];
-            else
-                break;
-        }
-        return prev;
+        if(left==NULL )
+            return right;
+        else if(right==NULL)
+            return left;
+        else 
+            return root;
+            
+        return root;
     }
 };
