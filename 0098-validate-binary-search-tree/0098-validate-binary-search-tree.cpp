@@ -10,27 +10,18 @@
  * };
  */
 class Solution {
-    void solve(TreeNode *root, vector<int>&res)
+public:
+    bool solve(TreeNode* root, long min, long max)
     {
         if(root==NULL)
-            return;
-        solve(root->left,res);
-        res.push_back(root->val);
-        solve(root->right,res);
+            return true;
+        
+        if(root->val>=max || root->val <= min)
+            return false;
+        
+        return solve(root->left,min,root->val) && solve(root->right,root->val,max);
     }
-public:
     bool isValidBST(TreeNode* root) {
-        vector<int> res;
-        solve(root,res);
-        int n=res.size();
-        for(int i=0;i<n;i++)
-        {
-            for(int j=i+1;j<n;j++)
-            {
-                if(res[i]>=res[j])
-                    return false;
-            }
-        }
-        return true;
+        return solve(root, LONG_MIN,LONG_MAX);
     }
 };
