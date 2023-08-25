@@ -10,46 +10,43 @@
  * };
  */
 class Solution {
-    void solve(TreeNode*root,vector<int>&ans)
-    {
-        if(root==NULL)
-            return;
-        solve(root->left,ans);
-        ans.push_back(root->val);
-        solve(root->right,ans);
-    }
-    void correctTree(TreeNode* root, const vector<int>& sortedVals, int& index) {
-        if (root == nullptr)
-            return;
-
-        correctTree(root->left, sortedVals, index);
-        if (root->val != sortedVals[index]) {
-            root->val = sortedVals[index];
-        }
-        index++;
-        correctTree(root->right, sortedVals, index);
-    }
-    
-    void solve1(TreeNode*root, vector<int>&ans, int &i)
+    void solve(TreeNode*root,TreeNode*&prev,TreeNode*&first,TreeNode*&middle,TreeNode*&last)
     {
         if(root==NULL)
             return;
         
-        solve1(root->left,ans,i);
-            if(root->val!=ans[i])
-                root->val=ans[i];
-        i++;
-        solve1(root->right,ans,i);
+        solve(root->left,prev,first,middle,last);
+        if(prev!=NULL && prev->val>root->val)
+        {
+            if(first==NULL)
+            {
+                first=prev;
+                middle=root;
+            }
+            else
+            {
+                last=root;
+            }
+        }
+        prev=root;
+         solve(root->right,prev,first,middle,last);
     }
 public:
     void recoverTree(TreeNode* root) {
-        vector<int>ans;
-        solve(root,ans);
-        sort(ans.begin(),ans.end());
-        int index=0;
-        solve1(root,ans,index);
+        TreeNode *prev=new TreeNode(INT_MIN);
+        TreeNode *first=NULL;
+        TreeNode *middle=NULL;
+        TreeNode *last=NULL;
         
+        solve(root,prev,first,middle,last);
         
-        
+        if(first && last)
+        {
+            swap(first->val,last->val);
+        }
+        else if(first && middle)
+        {
+            swap(first->val,middle->val);
+        }
     }
 };
