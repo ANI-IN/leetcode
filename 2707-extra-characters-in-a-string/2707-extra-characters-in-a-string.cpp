@@ -34,7 +34,6 @@ public:
         {
             mpp[it]++;
         }
-        solve(0,s,mpp,dp);
-        return dp[0];
+      return solve(0, s, mpp, dp); 
     }
 };
