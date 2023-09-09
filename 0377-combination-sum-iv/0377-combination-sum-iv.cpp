@@ -8,9 +8,13 @@ class Solution {
         if(dp[index][sum]!=-1)
             return dp[index][sum];
         int ways=0;
-
-            ways+=solve(0,sum+nums[index],nums,target,dp);
-            ways+=solve(index+1,sum,nums,target,dp);
+            
+        for(int i=index;i<nums.size();i++)
+        {
+              ways+=solve(0,sum+nums[i],nums,target,dp);
+        }
+          
+            
       return dp[index][sum]=ways;
         
     }
