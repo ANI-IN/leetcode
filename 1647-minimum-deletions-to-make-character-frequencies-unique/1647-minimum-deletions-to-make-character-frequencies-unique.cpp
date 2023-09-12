@@ -1,30 +1,22 @@
 class Solution {
 public:
     int minDeletions(string s) {
-        vector<int> arr(26,0);
-        
+       int arr[26]={0};
         for(char c : s)
         {
             arr[c-'a']++;
         }
         int ans=0;
-        set<int> st;
-        for(int i=0;i<26;i++)
+        sort(begin(arr),end(arr));
+        
+        for(int i=24;i>=0 && arr[i]>=0;i--)
         {
-            int f=arr[i];
-            if(st.find(f)==st.end())
+            if(arr[i]>=arr[i+1])
             {
-                st.insert(f);
-            }
-            else
-            {
-                while(f>0 && st.count(f))
-                {
-                    ans++;
-                    f--;
-                }
-                if(f>0)
-                    st.insert(f);
+                int prev=arr[i];
+                arr[i]=max(0,arr[i+1]-1);
+                
+                ans+=prev-arr[i];
             }
         }
         return ans;
