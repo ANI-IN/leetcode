@@ -1,15 +1,19 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        char ans=0;
+        sort(s.begin(),s.end());
+        sort(t.begin(),t.end());
         
-        for(char c : s)
-            ans^=c;
-        
-        for(char c : t)
-            ans^=c;
-        
-        return ans;
-        
+        int n = s.size();
+        int m = t.size();
+
+        for (int i = 0; i < n; i++) {
+            if (s[i] != t[i]) {
+                return t[i];
+            }
+        }
+
+       
+        return t[n];
     }
 };
