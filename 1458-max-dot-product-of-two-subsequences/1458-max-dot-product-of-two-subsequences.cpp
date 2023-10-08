@@ -24,10 +24,22 @@ class Solution {
     }
 public:
     int maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
-        n = nums1.size();
-        m = nums2.size();
-        dp.assign(n, vector<int>(m, -1));
-        return solve(0, 0, nums1, nums2);
+       int n = nums1.size();
+        int m = nums2.size();
+        
+        vector<int> dp(m + 1, INT_MIN / 2); // Initialize with a large negative value
+        
+        for (int i = 0; i < n; i++) {
+            int prev = dp[0];
+            for (int j = 0; j < m; j++) {
+                int val = nums1[i] * nums2[j];
+                int tmp = dp[j + 1];
+                dp[j + 1] = max({val, dp[j], dp[j + 1], prev + val});
+                prev = tmp;
+            }
+        }
+        
+        return dp[m];
 
         
         
