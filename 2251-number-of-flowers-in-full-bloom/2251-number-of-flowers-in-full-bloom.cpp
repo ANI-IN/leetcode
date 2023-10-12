@@ -1,25 +1,36 @@
 class Solution {
+  
 public:
     vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
-       int n = flowers.size();
-        int an = people.size();
-        vector<int>ans;
-        vector<long long int>start,endi;
-        for(int i = 0; i < flowers.size(); i++){
-            start.push_back(flowers[i][0]);
-            endi.push_back(flowers[i][1]);
+       vector<int> start;
+       vector<int> endd;
+        
+        int n=flowers.size();
+        for(int i=0;i<n;i++)
+        {
+            int s=flowers[i][0];
+            int e=flowers[i][1];
+            
+            start.push_back(s);
+            endd.push_back(e);
         }
         sort(start.begin(),start.end());
-        sort(endi.begin(),endi.end());
-
-        for(int i = 0; i < an; i++){
-            int k = people[i];
-            auto it1 = upper_bound(start.begin(),start.end(),k);
-            auto it2 = lower_bound(endi.begin(),endi.end(),k);
-            int a = n - (it1-start.begin());
-            int b = n - (it2-endi.begin());
-            ans.push_back(abs(a-b));
+        sort(endd.begin(),endd.end());
+        
+        int m=people.size();
+        int x,y;
+        
+        vector<int> ans(m);
+        for(int i=0;i<m;i++)
+        {
+            int p=people[i];
+            x=upper_bound(start.begin(),start.end(),p)-start.begin();
+            y=lower_bound(endd.begin(),endd.end(),p)-endd.begin();
+            ans[i]=x-y;
         }
-        return ans; 
+        
+        return ans;
+        
+        
     }
 };
