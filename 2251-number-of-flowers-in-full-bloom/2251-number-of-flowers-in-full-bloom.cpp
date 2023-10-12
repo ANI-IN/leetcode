@@ -2,17 +2,19 @@ class Solution {
   
 public:
     vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
-       vector<int> start;
-       vector<int> endd;
+       
         
         int n=flowers.size();
+        vector<int> start(n);
+        vector<int> endd(n);
         for(int i=0;i<n;i++)
         {
             int s=flowers[i][0];
             int e=flowers[i][1];
             
-            start.push_back(s);
-            endd.push_back(e);
+            start[i]=s;
+            endd[i]=e;
+            
         }
         sort(start.begin(),start.end());
         sort(endd.begin(),endd.end());
