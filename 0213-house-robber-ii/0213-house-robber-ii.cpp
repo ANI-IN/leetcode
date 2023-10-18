@@ -1,19 +1,4 @@
 class Solution {
-    int solve(int n, vector<int>&nums, vector<int>&dp)
-    {
-        if(n==0)
-            return nums[n];
-        if(n<0)
-            return 0;
-        
-        if(dp[n]!=-1)
-            return dp[n];
-        
-        int p=nums[n]+solve(n-2,nums,dp);
-        int no=solve(n-1,nums,dp);
-        
-        return dp[n]=max(p,no);
-    }
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
@@ -36,9 +21,24 @@ public:
                 a2.push_back(nums[i]);
         }
         
-        return max(solve(n-2,a1,dp1),solve(n-2,a2,dp2));
         
+        dp1[0]=a1[0];
+        dp1[1]=max(a1[0],a1[1]);
         
+        dp2[0]=a2[0];
+        dp2[1]=max(a2[0],a2[1]);
         
+        for(int i=2;i<a1.size();i++)
+        {
+            dp1[i] = max(dp1[i - 1], dp1[i - 2] + a1[i]);
+        }
+        
+        for(int i=2;i<a2.size();i++)
+        {
+            dp2[i] = max(dp2[i - 1], dp2[i - 2] + a2[i]);
+        }
+                    
+        return max(dp1[n-2],dp2[n-2]);
+  
     }
 };
