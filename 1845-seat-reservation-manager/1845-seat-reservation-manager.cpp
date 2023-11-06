@@ -1,11 +1,11 @@
 class SeatManager {
 public:
-    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+    priority_queue<int,vector<int>,greater<int>>q;
     SeatManager(int n) {
         
         for(int i=1;i<=n;i++)
         {
-            q.push({i,0});
+            q.push(i);
         }
     }
     
@@ -13,7 +13,7 @@ public:
         int ans=-1;
         if(!q.empty())
         {
-            ans=q.top().first;
+            ans=q.top();
             q.pop();
         }
         
@@ -21,7 +21,7 @@ public:
     }
     
     void unreserve(int seatNumber) {
-        q.push({seatNumber,0});
+        q.push(seatNumber);
     }
 };
 
