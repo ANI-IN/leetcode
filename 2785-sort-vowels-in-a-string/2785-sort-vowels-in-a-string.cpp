@@ -1,32 +1,36 @@
 class Solution {
+    bool isVowel(char c)
+    {
+        return c == 'a' || c == 'e' || c == 'o'|| c == 'u'|| c == 'i' 
+        || c == 'A' || c == 'E' || c == 'O'|| c == 'U'|| c == 'I';
+    }
 public:
     string sortVowels(string s) {
-        int n=s.size();   
-        vector<char> arr;
-        
-        for(int i=0;i<n;i++)
+        int n=s.size();
+        unordered_map<char,int> m;
+        for(auto it : s)
         {
-            if(s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u')
-                arr.push_back(s[i]);
-            else if(s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U')
-                arr.push_back(s[i]);
+            if(isVowel(it))
+                m[it]++;
         }
-        
-        sort(arr.begin(),arr.end());
-        
-        int j=0;
+       
+        string a="AEIOUaeiou";
         string ans="";
-        
-        for(int i=0;i<n;i++)
+        int j=0;
+        for(int i=0;i<s.size();i++)
         {
-            if(s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u')
-                ans.push_back(arr[j++]);
-            else if(s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U')
-                ans.push_back(arr[j++]);
-            else
+            if(!isVowel(s[i]))
                 ans.push_back(s[i]);
+            else
+            {
+                while(m[a[j]]==0)
+                    j++;
+                
+                ans+=a[j];
+                m[a[j]]--;
+            }
         }
-        
         return ans;
+        
     }
 };
