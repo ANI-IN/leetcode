@@ -21,7 +21,11 @@ public:
         vector<bool> result;
         for(int i=0;i<m;i++)
         {
-            vector<int> arr(begin(nums)+l[i],begin(nums)+r[i]+1);
+            vector<int> arr;
+            for(int j=l[i];j<=r[i];j++)
+            {
+                arr.push_back(nums[j]);
+            }
             
             result.push_back(solve(arr));
         }
