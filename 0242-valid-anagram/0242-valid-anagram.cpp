@@ -2,28 +2,24 @@ class Solution {
 public:
     bool isAnagram(string s, string t) {
         
-        
+        vector<int> m(26,0);
         int n=s.size();
-        int m=t.size();
+        int mm=t.size();
         
-        if(n!=m)
+        if(n!=mm)
             return false;
         
-        vector<int> arr(26,0);
         for(int i=0;i<n;i++)
         {
-            char c1=s[i];
-            char c2=t[i];
-            arr[c1-'a']++;
-            arr[c2-'a']--;
+            m[s[i]-'a']++;
+            m[t[i]-'a']--;
         }
-        for(auto it : arr)
+        
+        for(auto it : m)
+        {
             if(it!=0)
                 return false;
+        }
         return true;
-        
-       
-        
-        
     }
 };
