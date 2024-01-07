@@ -1,17 +1,17 @@
 class Solution {
-    int solve(vector<int>&nums,int target,int n)
+    int solve(vector<int>&nums,int x, int n)
     {
-        int index=-1;
         int low=0,high=n-1;
+        int index=-1;
         while(low<=high)
         {
             int mid=low+(high-low)/2;
-            if(nums[mid]==target)
+            if(nums[mid]==x)
             {
                 index=mid;
                 high=mid-1;
             }
-            else if(nums[mid]<=target)
+            else if(nums[mid]<x)
             {
                 low=mid+1;
             }
@@ -19,23 +19,25 @@ class Solution {
             {
                 high=mid-1;
             }
+            
+           
         }
-        return index;
-        
+         return index;
     }
-    int solve1(vector<int>&nums,int target,int n)
+    
+    int solve2(vector<int>&nums,int x, int n)
     {
-        int index=-1;
         int low=0,high=n-1;
+        int index=-1;
         while(low<=high)
         {
             int mid=low+(high-low)/2;
-            if(nums[mid]==target)
+            if(nums[mid]==x)
             {
                 index=mid;
-                low=mid+1;
+                low=mid+1;;
             }
-            else if(nums[mid]<=target)
+            else if(nums[mid]<x)
             {
                 low=mid+1;
             }
@@ -43,21 +45,27 @@ class Solution {
             {
                 high=mid-1;
             }
+            
+            
         }
         return index;
-        
     }
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
         int n=nums.size();
-        int f=solve(nums,target,n);
-        int l=solve1(nums,target,n);
-        vector<int> ans(2);
-        ans[0]=f!=-1?f:-1;
-        ans[1]=l!=-1?l:-1;
+        vector<int> ans;
         
-        return ans;
+        int x=solve(nums,target,n);
+        int y=solve2(nums,target,n);
         
+        if(x!=-1 && y!=-1)
+        {
+            ans.push_back(x);
+            ans.push_back(y);
+            return ans;
+        }
+        
+        return {-1,-1};
         
     }
 };
