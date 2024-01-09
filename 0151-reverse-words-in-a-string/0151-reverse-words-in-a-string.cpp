@@ -2,16 +2,17 @@ class Solution {
 public:
     string reverseWords(string s) {
         stringstream ss(s);
-        string token= "";
+        string str="";
+        string token="";
         
-        string ans="";
+        
         while(ss >> token)
         {
-            
-            ans = token + " " + ans;
+            str=token+" "+str;
         }
         
-       return ans.substr(0,ans.size()-1);
-       
+        return str.substr(0,str.size()-1);
+    
+    
     }
 };
