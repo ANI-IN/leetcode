@@ -10,33 +10,25 @@
  * };
  */
 class Solution {
-    int maxi=-1;
-    void solve(TreeNode *root, TreeNode *child)
-    {
-        if(root==NULL || child==NULL)
-            return ;
-        maxi=max(maxi,abs(root->val-child->val));
-        
-        solve(root,child->left);
-        solve(root,child->right);
-    }
-    
-    void solve2(TreeNode *root)
+    int solve(TreeNode *root, int mini,int maxi)
     {
         if(root==NULL)
-            return ;
+        {
+            return abs(mini-maxi);
+        }
         
-        solve(root,root->left);
-        solve(root,root->right);
+        mini=min(mini,root->val);
+        maxi=max(maxi,root->val);
         
-        solve2(root->left);
-        solve2(root->right);
+        int l=solve(root->left,mini,maxi);
+        int r=solve(root->right,mini,maxi);
+        
+        return max(l,r);
     }
 public:
     int maxAncestorDiff(TreeNode* root) {
         
-        solve2(root);
-        return maxi;
-        
+        int ans=solve(root,root->val,root->val);
+        return ans;
     }
 };
