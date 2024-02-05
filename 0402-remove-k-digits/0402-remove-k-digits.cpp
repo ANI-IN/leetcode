@@ -1,18 +1,19 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        
         string ans="";
         
-        for(char &c : num)
+        for(auto it : num)
         {
-            while(ans.size() && k && ans.back()>c)
+            
+            while(!ans.empty() && k && ans.back()>it)
             {
                 ans.pop_back();
                 k--;
             }
-            if(ans.size() || c!='0')
-                ans.push_back(c);
+            if(it!='0' || ans.size())
+                ans.push_back(it);
+            
         }
         
         while(ans.size() && k)
@@ -20,13 +21,9 @@ public:
             ans.pop_back();
             k--;
         }
-        
         if(ans=="")
             return "0";
         else
             return ans;
-        
-        
-       
     }
 };
