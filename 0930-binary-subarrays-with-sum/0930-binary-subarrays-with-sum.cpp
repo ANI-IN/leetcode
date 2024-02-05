@@ -1,26 +1,26 @@
 class Solution {
-    int solve(vector<int>&nums,int goal)
+    int solve(vector<int>& nums, int goal)
     {
-        int i=0,j=0,n=nums.size();
-        int res=0;
-        int sum=0;
         if(goal<0)
             return 0;
-        
+        int i=0,j=0,n=nums.size();
+        int sum=0;
+        int ans=0;
         while(j<n)
         {
-            sum+=nums[j];
+            sum=sum+nums[j];
             
-            while(sum>goal)
+            while(sum>goal && i <= j )
             {
                 sum=sum-nums[i];
-                i++;;
+                i++;
             }
             
-            res=res+j-i+1;
+                ans += (j - i + 1);
+            
             j++;
         }
-        return res;
+        return ans;
     }
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
