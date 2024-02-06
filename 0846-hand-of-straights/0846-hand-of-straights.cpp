@@ -11,22 +11,26 @@ public:
         for(auto it : m)
             pq.push(it.first);
         
+        
         while(!pq.empty())
         {
-            int val=pq.top();
+            int t=pq.top();
             for(int i=0;i<groupSize;i++)
             {
-                if(m.find(val+i)==m.end())
+                if(m.find(t+i)==m.end())
                     return false;
                 
-                m[val+i]--;
+                m[t+i]--;
                 
-                if(m[val+i]==0)
+                if(m[t+i]==0)
                 {
-                    if(pq.top()!=val+i)
+                    if(pq.top()!=t+i)
                         return false;
+                    
                     pq.pop();
                 }
+                
+                
             }
         }
         return true;
