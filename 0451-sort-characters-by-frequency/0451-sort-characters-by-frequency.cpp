@@ -2,14 +2,12 @@ class Solution {
 public:
     string frequencySort(string s) {
         unordered_map<char,int> m;
-        int n=s.size();
-        
-        for(int i=0;i<n;i++)
+        for(auto it : s)
         {
-            m[s[i]]++;
+            m[it]++;
         }
         
-        priority_queue<pair<int,char>>q;
+        priority_queue<pair<int,char>> q;
         
         for(auto it : m)
         {
@@ -26,6 +24,7 @@ public:
             {
                 ans.push_back(c);
             }
+            
         }
         return ans;
     }
