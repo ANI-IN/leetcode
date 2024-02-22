@@ -1,21 +1,24 @@
 class Solution {
-    int solve(int i, vector<int>&nums,vector<int>&dp)
+    int solve(int index, vector<int> &arr ,vector<int>&dp)
     {
-        if(i<0)
+        if(index<0)
             return 0;
-        if(dp[i]!=-1)
-            return dp[i];
         
-        int pick=nums[i]+solve(i-2,nums,dp);
-        int non=solve(i-1,nums,dp);
+        if(dp[index]!=-1)
+            return dp[index];
         
-        return dp[i]=max(pick,non);
+        
+        int non=0+solve(index-1,arr,dp);
+        int take=INT_MIN;
+            take=arr[index]+solve(index-2,arr,dp);
+        
+        return dp[index]=max(non,take);
+        
     }
 public:
     int rob(vector<int>& nums) {
-        int n=nums.size();
-        vector<int> dp(n+1,-1);
         
-        return solve(n-1,nums,dp);
+        vector<int> dp(nums.size()+1,-1);
+        return solve(nums.size()-1,nums,dp);
     }
 };
