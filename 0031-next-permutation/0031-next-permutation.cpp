@@ -19,13 +19,12 @@ public:
             return;
         }
         
-        
         for(int i=n-1;i>index;i--)
         {
             if(nums[i]>nums[index])
             {
-                swap(nums[index],nums[i]);
-                break;
+                swap(nums[i],nums[index]);
+                    break;
             }
         }
         
