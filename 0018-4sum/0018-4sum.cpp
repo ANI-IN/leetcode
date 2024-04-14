@@ -1,55 +1,56 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        sort(nums.begin(),nums.end());
         int n=nums.size();
+        sort(nums.begin(),nums.end());
         vector<vector<int>> ans;
+        
         
         for(int i=0;i<n;i++)
         {
             if(i>0 && nums[i]==nums[i-1])
                 continue;
+            
             for(int j=i+1;j<n;j++)
             {
-                if(j!=i+1 && nums[j]==nums[j-1])
+                if(j>i+1 && nums[j]==nums[j-1])
                     continue;
-                int k=j+1;
-                int h=n-1;
                 
-                while(k<h)
+                int low=j+1;
+                int high=n-1;
+                
+                
+                while(low<high)
                 {
                     long long sum=nums[i];
                     sum+=nums[j];
-                    sum+=nums[k];
-                    sum+=nums[h];
+                    sum+=nums[low];
+                    sum+=nums[high];
                     
-                    if(sum<target)
+                    if(sum>target)
                     {
-                        k++;
+                        high=high-1;
                     }
-                    else if(sum>target)
+                    else if(sum<target)
                     {
-                        h--;
+                        low=low+1;
                     }
                     else
                     {
-                        vector<int> temp{nums[i],nums[j],nums[k],nums[h]};
+                        vector<int> temp{nums[i],nums[j],nums[low],nums[high]};
                         ans.push_back(temp);
+                        low++;
+                        high--;
                         
-                        k++;
-                        h--;
+                        while(low<high && nums[low]==nums[low-1])
+                            low++;
                         
-                        while(k<h && nums[k]==nums[k-1])
-                            k++;
-                        
-                        while(h>k && nums[h]==nums[h+1])
-                            h--;
+                        while(high>low && nums[high]==nums[high+1])
+                            high--;
                     }
                 }
             }
-           
-                
         }
-         return ans;
+        return ans;
     }
 };
