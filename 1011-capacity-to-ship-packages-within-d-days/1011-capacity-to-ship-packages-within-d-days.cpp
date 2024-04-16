@@ -1,37 +1,37 @@
 class Solution {
-    bool solve(vector<int>w, int d, int m)
+    int solve(vector<int> arr, int w)
     {
+        int n=arr.size();
+        int ans=0;
         int days=1;
-        int sum=0;
-        for(int i=0;i<w.size();i++)
+        for(int i=0;i<n;i++)
         {
-            if(sum+w[i]<=m)
+            if(ans+arr[i]<=w)
             {
-                sum=sum+w[i];
+                ans+=arr[i];
             }
             else
             {
-                sum=w[i];
                 days++;
+                ans=arr[i];
             }
         }
-        if(days<=d)
-            return true;
-        else
-            return false;
+        return days;
     }
 public:
-    int shipWithinDays(vector<int>& w, int days) {
-        int sum=0;
-        int low=*max_element(w.begin(),w.end());
-        for(auto it : w)
-            sum=sum+it;
-        int high=sum;
+    int shipWithinDays(vector<int>& arr, int days) {
+        int n=arr.size();
+        int low=*max_element(arr.begin(),arr.end());
+        int high=0;
+        for(auto it : arr)
+            high+=it;
         
         while(low<=high)
         {
             int mid=low+(high-low)/2;
-            if(solve(w,days,mid))
+            int ans=solve(arr,mid);
+            
+            if(ans<=days)
             {
                 high=mid-1;
             }
@@ -41,6 +41,5 @@ public:
             }
         }
         return low;
-        
     }
 };
