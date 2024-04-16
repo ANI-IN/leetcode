@@ -1,25 +1,28 @@
 class Solution {
-    long long solve(vector<int>p, int t, int n)
+    double possible(vector<int>&piles,int h, int k)
     {
-        long long ans=0;
+        double ans=0;
+        int n=piles.size();
+        
         for(int i=0;i<n;i++)
         {
-            ans=ans+ceil((double)p[i]/(double)t);
+            ans=ans+ceil((double)piles[i]/(double)k);
         }
+        
         return ans;
     }
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
-        long long n=piles.size();
-        long long high=*max_element(piles.begin(),piles.end());
-        long long low=1;
+        int n=piles.size();
+        int low=0;
+        int high=*max_element(piles.begin(),piles.end());
+        
         
         while(low<=high)
         {
-            long long mid=low+(high-low)/2;
-            long long t=solve(piles,mid,n);
-            
-            if(t<=h)
+            int mid=low+(high-low)/2;
+            double time=possible(piles,h,mid);
+            if(time<=h)
             {
                 high=mid-1;
             }
