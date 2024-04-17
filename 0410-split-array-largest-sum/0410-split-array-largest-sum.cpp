@@ -1,8 +1,8 @@
 class Solution {
-    bool solve(vector<int>&nums, int k, int mid)
+    int solve(vector<int>&nums, int k, int mid)
     {
-        int sum=0;
         int n=nums.size();
+        long sum=0;
         int c=1;
         
         for(int i=0;i<n;i++)
@@ -17,8 +17,8 @@ class Solution {
                 sum=nums[i];
             }
         }
-            
-        return c>k;
+        
+       return c;
     }
 public:
     int splitArray(vector<int>& nums, int k) {
@@ -31,8 +31,9 @@ public:
         while(low<=high)
         {
             int mid=low+(high-low)/2;
-        
-            if(solve(nums,k,mid))
+            int ans=solve(nums,k,mid);
+            
+            if(ans>k)
             {
                 low=mid+1;
             }
