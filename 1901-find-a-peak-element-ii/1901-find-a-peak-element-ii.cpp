@@ -8,33 +8,33 @@ public:
         
         while(low<=high)
         {
-            int mid=low+(high-low)/2;
+            int col=low+(high-low)/2;
             
             int maxi=0;
             int row=-1;
             for(int i=0;i<n;i++)
             {
-                if(mat[i][mid] > maxi)
+                if(mat[i][col] > maxi)
                 {
-                    maxi=mat[i][mid];
+                    maxi=mat[i][col];
                     row=i;
                 }
             }
-            int curr=mat[row][mid];
-            int left=mid==0?-1:mat[row][mid-1];
-            int right=mid==m-1?-1:mat[row][mid+1];
+            int curr=mat[row][col];
+            int left=col==0?-1:mat[row][col-1];
+            int right=col==m-1?-1:mat[row][col+1];
             
             if(curr>left && curr>right)
             {
-                return {row,mid};
+                return {row,col};
             }
             else if(curr<left)
             {
-                high=mid-1;
+                high=col-1;
             }
             else
             {
-                low=mid+1;
+                low=col+1;
             }
         }
         return {-1,-1};
