@@ -7,14 +7,14 @@ public:
         if(n!=m)
             return false;
         
-        
         for(int i=0;i<n;i++)
         {
             int j=0;
-            while(s[(i+j)%n]==goal[j])
+            while( goal[j]==s[(i+j)%n] )
                 j++;
             
-            if(j==n)return true;
+            if(j==n)
+                return true;
         }
         return false;
     }
