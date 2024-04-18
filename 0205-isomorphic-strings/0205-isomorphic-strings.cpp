@@ -4,10 +4,7 @@ public:
         unordered_map<char,char> c1;
         unordered_map<char,bool> c2;
         
-        
-        int n=s.size();
-        
-        for(int i=0;i<n;i++)
+        for(int i=0;i<s.size();i++)
         {
             char c=s[i];
             char d=t[i];
@@ -29,6 +26,5 @@ public:
             }
         }
         return true;
-        
     }
 };
