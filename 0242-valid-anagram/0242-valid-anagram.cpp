@@ -1,20 +1,21 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        vector<int> ans(26,0);
-        if(s.size()!=t.size())
+        int n=s.size();
+        int m=t.size();
+        if(n!=m)
             return false;
         
+        vector<int> arr(26,0);
         
-        for(int i=0;i<s.size();i++)
+        for(int i=0;i<n;i++)
         {
-            ans[s[i]-'a']++;
-            ans[t[i]-'a']--;
+            arr[s[i]-'a']++;
+            arr[t[i]-'a']--;
         }
-        
         for(int i=0;i<26;i++)
         {
-            if(ans[i]!=0)
+            if(arr[i]!=0)
                 return false;
         }
         return true;
