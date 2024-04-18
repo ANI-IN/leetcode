@@ -16,10 +16,10 @@ public:
         
         for(int i=0;i<n;i++)
         {
-            if(m[s[i]]<m[s[i+1]])
+            if(m[s[i]] < m[s[i+1]])
             {
                 sum=sum+m[s[i+1]]-m[s[i]];
-                    i++;
+                i=i+1;
             }
             else
             {
@@ -27,6 +27,5 @@ public:
             }
         }
         return sum;
-        
     }
 };
