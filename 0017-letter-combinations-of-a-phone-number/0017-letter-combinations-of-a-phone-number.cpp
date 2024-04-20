@@ -1,34 +1,32 @@
 class Solution {
-    void solve(int index,string &digits,string arr[], vector<string>&ans, string temp)
+    void solve(int index, string &str, vector<string>&res,vector<string>&ans, string temp)
     {
-        if(index==digits.size())
+        if(index==str.size())
         {
             ans.push_back(temp);
             return;
         }
         
-        int digit=(int)digits[index]-'0';
-        string str=arr[digit];
+        int digit=(int)str[index]-'0';
+        string ss=res[digit];
         
-        for(int i=0;i<str.size();i++)
+        for(int i=0;i<ss.size();i++)
         {
-            temp.push_back(str[i]);
-            solve(index+1,digits,arr,ans,temp);
+            temp.push_back(ss[i]);
+            solve(index+1,str,res,ans,temp);
             temp.pop_back();
         }
     }
 public:
     vector<string> letterCombinations(string digits) {
-        string arr[10]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-       
+       vector<string> res={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"}; 
+        
         vector<string> ans;
         if(digits.size()==0)
             return ans;
         
-        
-        int index=0;
-        
-        solve(0,digits,arr,ans,"");
+        solve(0,digits,res,ans,"");
         return ans;
+            
     }
 };
