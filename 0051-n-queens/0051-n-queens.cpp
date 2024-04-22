@@ -1,39 +1,39 @@
 class Solution {
-    bool isvalid(int row,int col,vector<string>grid,int n)
+    bool valid(int row,int col,vector<string>&grid,int n)
     {
         int r=row;
         int c=col;
         
-        while(row>=0 && col>=0)
+        while(r>=0 && c>=0)
         {
-            if(grid[row][col]=='Q')
+            if(grid[r][c]=='Q')
                 return false;
-            row--;
-            col--;
+            r--;
+            c--;
         }
         
-        row=r;
-        col=c;
-        
-        while(col>=0)
+        r=row;
+        c=col;
+        while(c>=0)
         {
-            if(grid[row][col]=='Q')
+            if(grid[r][c]=='Q')
                 return false;
-            col--;
+            c--;
         }
         
-        row=r;
-        col=c;
         
-        while(row<n && col>=0)
+        r = row, c = col;
+        while(r<n && c>=0)
         {
-            if(grid[row][col]=='Q')
+            if(grid[r][c]=='Q')
                 return false;
-            col--;
-            row++;
+            
+            r++;
+            c--;
         }
         
         return true;
+        
     }
     
     void solve(int col, int n, vector<string>&str,vector<vector<string>>&ans)
@@ -46,7 +46,7 @@ class Solution {
         
         for(int i=0;i<n;i++)
         {
-            if(isvalid(i,col,str,n))
+            if(valid(i,col,str,n))
             {
                 str[i][col]='Q';
                 solve(col+1,n,str,ans);
@@ -56,16 +56,10 @@ class Solution {
     }
 public:
     vector<vector<string>> solveNQueens(int n) {
-        string s(n,'.');
-        vector<string> str(n);
         vector<vector<string>> ans;
-        for(int i=0;i<n;i++)
-        {
-            str[i]=s;
-        }
+        vector<string> str(n, string(n, '.')); // Initialize board with n strings of length n
         
-        solve(0,n,str,ans);
+        solve(0, n, str, ans);
         return ans;
-        
     }
 };
