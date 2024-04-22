@@ -1,56 +1,54 @@
 class Solution {
 public:
     int openLock(vector<string>& deadends, string target) {
+        string start = "0000";
+        unordered_set<string> dead(deadends.begin(), deadends.end());
         
-        string start="0000";
-        unordered_set<string> st(begin(deadends),end(deadends));
-        
-        if(st.count(start))
-        {
+        if (dead.count(start)) {
             return -1;
         }
         
-        int level=0;
+        int level = 0;
         queue<string> q;
         q.push(start);
+        unordered_set<string> visited;
+        visited.insert(start);
         
-        
-        while(!q.empty())
-        {
-            int size=q.size();
+        while (!q.empty()) {
+            int size = q.size();
             
-            for(int i=0;i<size;i++)
-            {
-                string str=q.front();
+            for (int i = 0; i < size; ++i) {
+                string current = q.front();
                 q.pop();
                 
-                if(str==target)
+                if (current == target) {
                     return level;
+                }
                 
-                for(int k=0;k<4;k++)
-                {
-                    char ch=str[k];
-                    char inc=ch=='9'?'0':ch+1;
-                    char dec=ch=='0'?'9':ch-1;
-                    
-                    str[k]=inc;
-                    if(st.find(str)==st.end())
-                    {
-                        q.push(str);
-                        st.insert(str);
+                for (int j = 0; j < 4; ++j) {
+                    char original = current[j];
+                    // Try rotating wheel 'j' up
+                    current[j] = (current[j] == '9') ? '0' : current[j] + 1;
+                    if (!visited.count(current) && !dead.count(current)) {
+                        q.push(current);
+                        visited.insert(current);
                     }
                     
-                    str[k]=dec;
-                    if(st.find(str)==st.end())
-                    {
-                        q.push(str);
-                        st.insert(str);
-                    }   
-                    str[k]=ch;                
+                    // Try rotating wheel 'j' down
+                    current[j] = (original == '0') ? '9' : original - 1;
+                    if (!visited.count(current) && !dead.count(current)) {
+                        q.push(current);
+                        visited.insert(current);
+                    }
+                    
+                    // Restore current to original state
+                    current[j] = original;
                 }
             }
-            level++;
+            
+            ++level;
         }
+        
         return -1;
     }
 };
