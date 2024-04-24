@@ -1,60 +1,58 @@
+#include <vector>
+#include <stack>
+
+using namespace std;
+
 class Solution {
 public:
-    int sumSubarrayMins(vector<int>& arr) {
-        int n=arr.size();
-        int MOD=1e9+7;
-        vector<int> left(n),right(n);
-        
+    vector<int> nextSmallerToLeft(vector<int>& arr) {
+        int n = arr.size();
         stack<int> st;
-        //pushing index not the elements 
-        
-        //left
-        st.push(0);
-        left[0]=1;
-        for(int i=1;i<n;i++)
-        {
-            while(!st.empty() && arr[i]<=arr[st.top()])
+        vector<int> ans(n);
+
+        for (int i = 0; i < n; i++) {
+            while (!st.empty() && arr[st.top()] >= arr[i]) {
                 st.pop();
-            
-            if(st.empty())
-                left[i]=i+1;
-            else
-                left[i]=i-st.top();
-            
+            }
+            ans[i] = st.empty() ? -1 : st.top();
             st.push(i);
         }
-        
-        while(!st.empty())
-            st.pop();
-        
-        //right
-        
-        st.push(n-1);
-        right[n-1]=1;
-        
-        for(int i=n-2;i>=0;i--)
-        {
-            while(!st.empty() && arr[i]<arr[st.top()])
+
+        return ans;
+    }
+
+    vector<int> nextSmallerToRight(vector<int>& arr) {
+        int n = arr.size();
+        stack<int> st;
+        vector<int> ans(n);
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.empty() && arr[st.top()] > arr[i]) {
                 st.pop();
-            
-            if(st.empty())
-                right[i]=n-i;
-            else
-                right[i]=st.top()-i;
-            
+            }
+            ans[i] = st.empty() ? n : st.top();
             st.push(i);
         }
-        
-           int res = 0;
-        for(int i=0; i<n; i++)
-        {
-            long long prod = (left[i]*right[i])%MOD;
-            prod = (prod*arr[i])%MOD;
-            res = (res + prod)%MOD;
+
+        return ans;
+    }
+
+    int sumSubarrayMins(vector<int>& arr) {
+        const int mod = 1e9 + 7;
+        int n = arr.size();
+        long long sum = 0;
+
+        vector<int> NSL = nextSmallerToLeft(arr);
+        vector<int> NSR = nextSmallerToRight(arr);
+
+        for (int i = 0; i < n; i++) {
+            int l = i - NSL[i];
+            int r = NSR[i] - i;
+            long long total_ways_for_i_min = static_cast<long long>(l) * r;
+            long long sum_i_in_total_ways = static_cast<long long>(arr[i]) * total_ways_for_i_min;
+            sum = (sum + sum_i_in_total_ways) % mod;
         }
-        
-        return res%MOD;
-        
-        
+
+        return static_cast<int>(sum);
     }
 };
