@@ -1,16 +1,21 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        unordered_map<int,int> m;
+        long x=0;
         for(auto it : nums)
-            m[it]++;
+            x=x^it;
         
-        vector<int> ans;
-        for(auto it : m)
+        long right=(x^(x-1))&x;
+        
+        int one=0,two=0;
+        for(int i=0;i<nums.size();i++)
         {
-            if(it.second==1)
-                ans.push_back(it.first);
+            if(nums[i]&right)
+                one=one^nums[i];
+            else
+                two=two^nums[i];
         }
-        return ans;
+        return {one,two};
+            
     }
 };
