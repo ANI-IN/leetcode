@@ -5,25 +5,26 @@ public:
         
         for(auto it : num)
         {
-            
-            while(!ans.empty() && k && ans.back()>it)
+            while(!ans.empty() && ans.back()>it && k)
             {
-                ans.pop_back();
                 k--;
+                ans.pop_back();
             }
-            if(it!='0' || ans.size())
+            if(it!='0' || ans.size() )
                 ans.push_back(it);
-            
         }
         
-        while(ans.size() && k)
+        
+        while(!ans.empty() && k)
         {
-            ans.pop_back();
             k--;
+            ans.pop_back();
         }
-        if(ans=="")
+        
+        if(ans.empty())
             return "0";
         else
             return ans;
+        
     }
 };
