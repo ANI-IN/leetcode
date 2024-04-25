@@ -2,23 +2,23 @@ class Solution {
 public:
     int numberOfSubstrings(string s) {
         int n=s.size();
-        int i=0,j=0;
-        unordered_map<char,int>m;
-        int c=0;
+        int i=0,j=0,ans=0;
+        unordered_map<char,int> m;
         
-        while(j<n)
+        
+        while(j!=s.size())
         {
-            m[s[j]]++;
-            
-            while(m['a']>=1 && m['b']>=1 && m['c']>=1)
+            m[s[j]]+=1;
+            while(m['a'] && m['b'] && m['c'])
             {
-                c+=(n-j);
-                m[s[i]]--;
+                ans+=(n-j);
+                
+                m[s[i]]-=1;
                 
                 i++;
             }
             j++;
         }
-        return c;
+        return ans;
     }
 };
