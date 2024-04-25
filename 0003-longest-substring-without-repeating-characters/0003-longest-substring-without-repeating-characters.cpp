@@ -3,9 +3,9 @@ public:
     int lengthOfLongestSubstring(string s) {
         int n=s.size();
         unordered_map<char,int> m;
-        
         int i=0,j=0;
         int ans=0;
+        
         while(j<n)
         {
             m[s[j]]++;
