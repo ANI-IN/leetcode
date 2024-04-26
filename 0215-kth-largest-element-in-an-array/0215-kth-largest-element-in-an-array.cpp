@@ -8,11 +8,9 @@ public:
         
         while(k>1)
         {
-            cout<<pq.top();
             pq.pop();
             k--;
         }
-        
         return pq.top();
     }
 };
