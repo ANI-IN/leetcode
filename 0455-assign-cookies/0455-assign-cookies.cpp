@@ -4,19 +4,22 @@ public:
         sort(g.begin(),g.end());
         sort(s.begin(),s.end());
         
-        int len_g=g.size();
-        int len_s=s.size();
-        int i=0,j=0,c=0;
+        int n=g.size();
+        int m=s.size();
         
-        while(i<len_g && j<len_s)
+        int i=0,j=0;
+        
+        int ans=0;
+        while(i<n && j<m)
         {
+            
             if(s[j]>=g[i])
             {
+                ans++;
                 i++;
-                c++;
             }
             j++;
         }
-        return c;
+        return ans;
     }
 };
