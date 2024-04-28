@@ -2,32 +2,32 @@ class Solution {
 public:
     bool lemonadeChange(vector<int>& bills) {
         int five=0,ten=0;
-        int n=bills.size();
         
-        for(int i=0;i<n;i++)
+        for(int i=0;i<bills.size();i++)
         {
             if(bills[i]==5)
                 five++;
             else if(bills[i]==10)
             {
-                if(five==0)
+                if(five)
                 {
-                    return false;
-                   
-                }
                     five--;
                     ten++;
-                    
+                }
+                else
+                    return false;
             }
-            else 
+            else if(bills[i]==20)
             {
-                if(five>0 && ten>0)
+                if(ten && five)
                 {
-                    five--;
                     ten--;
+                    five--;
                 }
                 else if(five>=3)
+                {
                     five=five-3;
+                }
                 else
                     return false;
             }
