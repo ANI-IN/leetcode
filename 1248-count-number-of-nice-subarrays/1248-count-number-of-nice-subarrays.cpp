@@ -12,7 +12,7 @@ class Solution {
             
             while(c>k)
             {
-                if(nums[i]%2==1)
+                if(nums[i]%2==1 && i<=j)
                     c--;
                 i++;
             }
