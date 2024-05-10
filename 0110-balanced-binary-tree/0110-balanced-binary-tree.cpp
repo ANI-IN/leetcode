@@ -15,22 +15,23 @@ class Solution {
         if(root==NULL)
             return 0;
         
-        int lh=solve(root->left);
-        int rh=solve(root->right);
+        int l=solve(root->left);
+        int r=solve(root->right);
         
-        if(abs(lh-rh)>1)
-            return -1;
+        return 1+max(l,r);
         
-        if(lh==-1 || rh==-1)
-            return -1;
-        return 1+max(lh,rh);
     }
 public:
     bool isBalanced(TreeNode* root) {
-        
-        if(solve(root)==-1)
-            return false;
-        else
+        if(root==NULL)
             return true;
+        
+        int l=solve(root->left);
+        int r=solve(root->right);
+        
+        if(abs(l-r)<=1 && isBalanced(root->left) && isBalanced(root->right))
+            return true;
+        
+        return false;
     }
 };
