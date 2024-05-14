@@ -10,19 +10,24 @@
  * };
  */
 class Solution {
-    bool solve(TreeNode *p, TreeNode*q)
+    bool solve(TreeNode *p, TreeNode *q)
     {
         if(p==NULL && q==NULL)
             return true;
-        else if (p==NULL || q==NULL)
+        
+        if( (p!=NULL && q==NULL) || (p==NULL && q!=NULL) )
             return false;
         
-        if(p->val!=q->val)
+        if(p->val != q->val)
             return false;
-        return solve(p->left,q->left) && solve(p->right,q->right);
+        
+        
+                
+        return (solve(p->left,q->left) && solve(p->right,q->right));
     }
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        return solve(p,q);   
+        
+        return solve(p,q);
     }
 };
