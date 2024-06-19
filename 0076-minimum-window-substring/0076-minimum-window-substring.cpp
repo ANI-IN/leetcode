@@ -13,6 +13,8 @@ public:
             m[it]++;
         
         int count=m.size();
+        
+        
         while(j<n)
         {
             m[s[j]]--;
@@ -23,7 +25,7 @@ public:
             {
                 while(count==0)
                 {
-                    if(ans>j-i+1)
+                    if(ans>j-i+1)           // ans=min(ans,j-i+1);
                     {
                         ans=j-i+1;
                         start=i;
@@ -39,6 +41,7 @@ public:
             j++;
             
         }
+        
         if(ans==INT_MAX)
             return "";
         else
